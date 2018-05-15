@@ -31,17 +31,34 @@ const pullFollowing = (userId, mangaId) =>
     },
   );
 
-const pushNotification = (userId, mangaId, title, latest) =>
-  User.findByIdAndUpdate(
-    userId,
-    { $push: { notificationStack: { _id: mangaId, title, latest } } },
-  );
+const pushNotifications = (updatedArr) => {
+  const promiseArr = [];
+  updatedArr.forEach((obj) => {
+    const {
+      _id, title, latest, followerList,
+    } = obj.manga;
+    const subscribedArr = followerList
+      .filter(userObj => userObj.subscribed)
+      .map(userObj => userObj._id);
+    const userUpdate = User
+      .where({ _id: { $in: subscribedArr } })
+      .update({ $push: { notificationStack: { _id, title, latest } } });
+    promiseArr.push(userUpdate);
+  });
+  return Promise.all(promiseArr);
+};
 
 const pullAllNotifications = userId =>
   User.findByIdAndUpdate(
     userId,
     { $pull: { notificationStack: {} } },
   );
+
+const purgeAllNotifications = () =>
+  User
+    .updateMany({}, { $pull: { notificationStack: {} } })
+    .where('notificationStack.0')
+    .exists();
 
 // reduces notificationStack into object
 // reduce duplicate titles into one title with the greatest latest value
@@ -66,7 +83,8 @@ module.exports = {
   subscribeFollowing,
   unsubscribeFollowing,
   pullFollowing,
-  pushNotification,
+  pushNotifications,
   pullAllNotifications,
+  purgeAllNotifications,
   retrieveNotifications,
 };

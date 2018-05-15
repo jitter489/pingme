@@ -68,12 +68,12 @@ class SearchList extends Component {
     const { state } = this
     const { searchArr } = this.props.search
     const { followingList } = this.props.user
-    const { className, value } = e.target
+    const { className, name } = e.target
     if (state.modal !== false) {
-      if (className === 'search-modal-inner' || className === 'search-modal-detail') return
-      if (value && value.length) return
-      this.setState({ modal: false, status: '' })
-      this.props.unmountRequestMessage()
+      if (className === 'search-modal-background' || name === 'close') {
+        this.setState({ modal: false, status: '' })
+        this.props.unmountRequestMessage()
+      }
     }
     if (state.modal === false) {
       const status = followingList.reduce((acc, ele) => {
@@ -93,7 +93,6 @@ class SearchList extends Component {
       unsubscribe, unfollow,
     } = this.props
     const { value } = e.target
-    // add logic for not logged in
     if (!user._id.length) return
     if (value === 'follow') follow(user._id, mangaId, false)
     if (value === 'followSubscribe') follow(user._id, mangaId, true)
@@ -111,7 +110,7 @@ class SearchList extends Component {
       handleModal,
     } = this
     const { searchArr, searchEnd } = this.props.search
-    const { requestMessage } = this.props.user
+    const { requestMessage, _id } = this.props.user
     const locationArr = this.props.location.pathname.split('/')
     const titleStr = locationArr[2] === 'manga' ? 'Manga' : 'Anime'
     const searchStr = locationArr[3][0].toUpperCase() + locationArr[3].slice(1).split('_').join(' ')
@@ -138,6 +137,7 @@ class SearchList extends Component {
             ? (
               <ItemModal
                 _id={searchArr[state.modal]._id}
+                loggedIn={_id.length > 0}
                 title={searchArr[state.modal].title}
                 completed={searchArr[state.modal].completed}
                 followerCount={searchArr[state.modal].followerCount}
@@ -157,7 +157,7 @@ class SearchList extends Component {
         <div className="search-item-container fade-in-element">
           {searchItemArr}
           {
-            searchEnd || searchArr.length % 12
+            searchEnd || searchArr.length % 12 || !searchArr.length
             ? <p className="search-more">End of search.</p>
             : (
               <button

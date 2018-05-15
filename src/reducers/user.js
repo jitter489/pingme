@@ -82,7 +82,7 @@ const user = (state = initialState, action) => {
     case LOGOUT_USER_SUCCESS: return {
       ...initialState,
       loggedInCheck: true,
-      requestMessage: 'Logout successful.',
+      requestMessage: 'Logout successful!',
     }
     case LOGOUT_USER_FAIL: return {
       ...state,
@@ -119,7 +119,7 @@ const user = (state = initialState, action) => {
         newEle.updated = new Date(newEle.updated)
         return newEle
       })
-      parsedRetrievedList.sort((a, b) => a.updated < b.updated)
+      parsedRetrievedList.sort((a, b) => b.updated.getTime() - a.updated.getTime())
       return {
         ...state,
         requestingUser: false,
