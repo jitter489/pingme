@@ -109,7 +109,7 @@ class SearchList extends Component {
       handleOnKeyUp,
       handleModal,
     } = this
-    const { searchArr, searchEnd } = this.props.search
+    const { searchArr, searchEnd, searching } = this.props.search
     const { requestMessage, _id } = this.props.user
     const locationArr = this.props.location.pathname.split('/')
     const titleStr = locationArr[2] === 'manga' ? 'Manga' : 'Anime'
@@ -158,7 +158,7 @@ class SearchList extends Component {
           {searchItemArr}
           {
             searchEnd || searchArr.length % 12 || !searchArr.length
-            ? <p className="search-more">End of search.</p>
+            ? searching ? null : <p className="search-more">End of search.</p>
             : (
               <button
                 className="search-more-button"
