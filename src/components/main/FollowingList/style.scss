@@ -2,8 +2,16 @@
   width: 80%;
   max-width: 750px;
   height: 85vh;
-  background-color: $light-black;
-  margin: 12px 0 0 0;
+  background-color: rgba(0, 0, 0, 0);
+  margin: 12px 0 12px 0;
+}
+.following-item-main {
+  background-color: $main-green;
+  width: 100%;
+  height: inherit;
+  padding: 18px 0;
+  // border: 1px solid $deep-grey;
+  box-shadow: 0 0 2px;
 }
 .following-item-container, .following-item-fade {
   display: block;
@@ -11,8 +19,6 @@
   height: inherit;
   background-color: $darker-green;
   overflow: auto;
-  border-top: 18px solid $main-green;
-  border-bottom: 20px solid $main-green;
   .following-item-fade {
     border: none;
   }
@@ -45,6 +51,12 @@
       max-width: 420px;
       font-size: 16px;
       font-weight: 400;
+      span {
+        font-size: 14px;
+      }
+      svg {
+        width: 18px;
+      }
     }
   }
   .following-item-darken, .empty-msg {
@@ -54,12 +66,14 @@
     padding: 16px 0;
     text-align: center;
     width: 100%;
+    font-size: 16px
   }
 }
 .following-list-buttons-container {
   flex-direction: row;
   justify-content: flex-start;
   width: 100%;
+  margin: 0 0 0 -2px;
   .following-list-button, .following-list-button-active {
     width: 150px;
     padding: 12px;
@@ -68,13 +82,21 @@
     font-weight: 400;
     transition: background-color 500ms ease;
     cursor: pointer;
+    span {
+      font-size: 16px;
+    }
   }
   .following-list-button:hover {
     background-color: $lighter-green;
   }
   .following-list-button-active {
     background-color: $main-green;
-    border-color: $main-green;
+    border-color: #5f6e79c9;
+    border-bottom-color: $main-green;
+    z-index: 1;
+    padding-bottom: 9px;
+    margin-bottom: 3px;
+    box-shadow: -1px 0px 0px #5f6e794f, 0px -1px 0px #5f6e794f, 1px 0px 0px #5f6e794f
   }
 }
 .fl-hidden {
@@ -85,30 +107,58 @@
   height: 100%;
 }
 .following-reroute-container {
-  width: 60vw;
-  max-width: 500px;
-  height: 50vh;
+  width: 74vw;
+  min-height: 62vh;
+  max-height: 82vh;
   background-color: $mid-lighter-green;
-  margin: 20px 0 0 0;
+  margin: 10px 0;
+  overflow: auto;
+  border-bottom: 14px solid #fffbf5;
+  box-shadow: 0 0 2px;
   .following-reroute-title {
     width: 100%;
     background-color: $main-green;
     padding: 18px 0 18px 0;
-    font-size: 22px;
-    font-weight: 300;
+    font-size: 30px;
+    font-weight: 400;
     text-align: center;
   }
   a {
     font-weight: 300;
   }
-  div {
-    flex-direction: row;
-    align-items: center;
-    margin: 16px 0 0 0;
+  div.landing-container {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 84%;
+    margin: 6px 0 0 0;
     p {
       margin: 0 4px 0 4px;
-      font-size: 22px;
+      font-size: 16px;
     }
+    a {
+      text-decoration: underline;
+    }
+    ul {
+      list-style-type: none;
+      hr {
+        margin: 2px 0 2px 0;
+        visibility: hidden;
+      }
+      span {
+        font-weight: 500;
+      }
+    }
+    h2 {
+      margin: 2px 0 4px 0;
+      font-weight: 400;
+    }
+    hr {
+      width: 100%;
+      margin: 12px 0 12px 0;
+    }
+  }
+  div.landing-links {
+    flex-direction: row;
   }
 }
 
@@ -118,8 +168,12 @@
     height: 100%;
     margin: 0;
     .following-list-buttons-container {
+      margin: 0;
       button {
         font-size: 16px;
+      }
+      svg {
+        display: none;
       }
       .following-list-button-active {
         background-color: $mid-lighter-green;
@@ -136,16 +190,13 @@
   }
   .following-reroute-container {
     width: 90vw;
-    height: 60vh;
-    margin: 20px 0 0 0;
+    min-height: 60vh;
   }
 }
 @media only screen and (max-height: 500px) {
   .following-reroute-container {
-    display: block;
-    overflow-x: auto;
-    form {
-      margin: auto;
-    }
+    max-height: 92vh;
+    margin: 8px 0 8px 0;
+    border-bottom-width: 8px;
   }
 }

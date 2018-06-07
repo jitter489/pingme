@@ -175,6 +175,9 @@ class FollowingList extends Component {
             name='all'
             onClick={handleShowClick}
           >
+            <span>
+              <i className="fas fa-list" /> &nbsp;
+            </span>
             YOUR LIST
           </button>
           <button
@@ -182,6 +185,9 @@ class FollowingList extends Component {
             name='manga'
             onClick={handleShowClick}
           >
+            <span>
+              <i className="fas fa-book" /> &nbsp;
+            </span>
             MANGA
           </button>
           <button
@@ -189,6 +195,9 @@ class FollowingList extends Component {
             name='anime'
             onClick={handleShowClick}
           >
+            <span>
+              <i className="fas fa-desktop" /> &nbsp;
+            </span>
             ANIME
           </button>
         </div>
@@ -215,13 +224,15 @@ class FollowingList extends Component {
             )
             : null
         }
-        <div className="following-item-container">
-          <div
-            className={`following-item-fade ${state.display ? 'fl-fade-in-element' : 'fl-hidden'}`}
-          >
-            {!followingCount && loggedInCheck && !requestingUser
-              ? <p className="empty-msg">Follow/Subscribe to some titles!</p>
+        <div className="following-item-main">
+          <div className="following-item-container">
+            <div
+              className={`following-item-fade ${state.display ? 'fl-fade-in-element' : 'fl-hidden'}`}
+            >
+              {!followingCount && loggedInCheck && !requestingUser
+                ? <p className="empty-msg">Follow/Subscribe to some titles using the search bar on the top right!</p>
               : FollowingItemArrMapped}
+            </div>
           </div>
         </div>
       </div>
