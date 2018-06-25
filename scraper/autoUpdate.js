@@ -1,14 +1,34 @@
 const axios = require('axios');
 const { delay } = require('./scrapers/helpers');
 
-const checkTime = async (intervalTime) => {
-  try {
-    await axios.get('http://localhost:8080/scraper/updater');
-  } catch (err) {
-    console.error(err);
+const hourInMilli = 60000 * 60;
+const localUrl = 'http://localhost:8080/scraper/updater';
+
+// params:
+// intervalTime - milliseconds for intervals
+// manual - set to true for immediate one time update
+const autoUpdate = async (intervalTime, manual) => {
+  const currTime = new Date();
+  const currHour = currTime.getHours();
+  console.log(currHour)
+  if (currHour === 17 || currHour === 18 || manual) {
+    try {
+      await axios.get(process.env.UPDATER_ROUTE || localUrl);
+    } catch (err) {
+      console.error(err);
+    }
   }
-  await delay(intervalTime, intervalTime);
-  checkTime(intervalTime);
+  if (manual) return;
+  await delay(intervalTime);
+  autoUpdate(intervalTime);
 };
 
-checkTime(3600000);
+// run update one time (for 'npm run updater' script)
+if (!process.env.PORT && !process.env.LOCAL_USER) {
+  autoUpdate(0, true);
+}
+
+module.exports = {
+  autoUpdate,
+  hourInMilli,
+};

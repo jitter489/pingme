@@ -2,6 +2,7 @@
   width: 80%;
   max-width: 750px;
   height: 85vh;
+  min-height: 220px;
   background-color: rgba(0, 0, 0, 0);
   margin: 12px 0 12px 0;
 }
@@ -10,8 +11,9 @@
   width: 100%;
   height: inherit;
   padding: 18px 0;
-  // border: 1px solid $deep-grey;
-  box-shadow: 0 0 2px;
+}
+.following-item-main, .following-reroute-container {
+  border: 1px solid $deep-grey;
 }
 .following-item-container, .following-item-fade {
   display: block;
@@ -19,6 +21,8 @@
   height: inherit;
   background-color: $darker-green;
   overflow: auto;
+  border-top: solid thin $deep-grey;
+  border-bottom: solid thin $deep-grey;
   .following-item-fade {
     border: none;
   }
@@ -73,6 +77,7 @@
   flex-direction: row;
   justify-content: flex-start;
   width: 100%;
+  min-height: 40px;
   margin: 0 0 0 -2px;
   .following-list-button, .following-list-button-active {
     width: 150px;
@@ -91,12 +96,11 @@
   }
   .following-list-button-active {
     background-color: $main-green;
-    border-color: #5f6e79c9;
-    border-bottom-color: $main-green;
     z-index: 1;
-    padding-bottom: 9px;
-    margin-bottom: 3px;
-    box-shadow: -1px 0px 0px #5f6e794f, 0px -1px 0px #5f6e794f, 1px 0px 0px #5f6e794f
+    padding: 14px 0 12px 0;
+    margin: 0 0 2px 0;
+    border: solid thin $deep-grey;
+    border-bottom: none;
   }
 }
 .fl-hidden {
@@ -113,8 +117,6 @@
   background-color: $mid-lighter-green;
   margin: 10px 0;
   overflow: auto;
-  border-bottom: 14px solid #fffbf5;
-  box-shadow: 0 0 2px;
   .following-reroute-title {
     width: 100%;
     background-color: $main-green;
@@ -126,19 +128,20 @@
   a {
     font-weight: 300;
   }
-  div.landing-container {
+  .landing-container {
     flex-direction: column;
     align-items: flex-start;
     width: 84%;
-    margin: 6px 0 0 0;
+    margin: 16px 0 0 0;
     p {
-      margin: 0 4px 0 4px;
+      margin: 0 12px 0 4px;
       font-size: 16px;
     }
     a {
       text-decoration: underline;
     }
     ul {
+      margin: 0 12px 0 4px;
       list-style-type: none;
       hr {
         margin: 2px 0 2px 0;
@@ -179,12 +182,15 @@
         background-color: $mid-lighter-green;
         border-color: $mid-lighter-green;
         border-top-color: $border-grey;
+        padding: 12px 0 10px 0;
       }
     }
-    .following-item-container {
-      border-color: $mid-lighter-green;
-      .following-item-title {
-        max-width: 170px;
+    .following-item-main {
+      padding: 12px 0;
+      .following-item-container {
+        .following-item-title {
+          max-width: 170px;
+        }
       }
     }
   }
@@ -193,10 +199,41 @@
     min-height: 60vh;
   }
 }
-@media only screen and (max-height: 500px) {
+@media only screen and (max-height: 550px) {
+  .following-list {
+    margin: 0 0 6px 0;
+    .following-list-buttons-container {
+      margin: 0 0 -3px -2px;
+      .following-list-button {
+        padding: 8px;
+      }
+      .following-list-button-active {
+        padding: 8px 0 10px 0;
+      }
+      .following-item-main {
+        padding: 10px 0;
+      }
+    }
+  }
   .following-reroute-container {
     max-height: 92vh;
-    margin: 8px 0 8px 0;
-    border-bottom-width: 8px;
+    margin: 0 0 6px 0;
+  }
+}
+@media only screen and (max-width: 500px) and (max-height: 550px) {
+  .following-list {
+    margin: -5px 0 0 0;
+    .following-list-buttons-container {
+      margin: 0;
+      .following-list-button-active {
+        padding: 12px 0 12px 0;
+      }
+      .following-list-button {
+        padding: 12px;
+      }
+    }
+    .following-item-main {
+      padding: 12px 0;
+    }
   }
 }
